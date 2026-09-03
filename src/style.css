@@ -1,0 +1,439 @@
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #111;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#laptop-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(35, 30, 26, 0.48);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+#laptop-overlay.visible {
+  opacity: 1;
+}
+
+#laptop-window {
+  position: relative;
+  width: min(760px, 90vw);
+  min-height: 420px;
+  background: #f5f1eb;
+  border: 1px solid rgba(48, 40, 32, 0.1);
+  border-radius: 24px;
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.28),
+    0 8px 30px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  transform: translateY(15px) scale(0.97);
+  transition:
+    transform 0.3s ease;
+}
+
+#laptop-overlay.visible #laptop-window {
+  transform: translateY(0) scale(1);
+}
+
+#laptop-close {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(48, 40, 32, 0.1);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  color: #302820;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+  z-index: 2;
+}
+
+#laptop-close:hover {
+  background: white;
+  transform: rotate(90deg);
+}
+
+#laptop-content {
+  padding: 52px;
+}
+
+#laptop-header {
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(48, 40, 32, 0.12);
+}
+
+#laptop-header span {
+  color: #302820;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.github-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 32px;
+  padding: 30px;
+  min-height: 150px;
+  background: #fff;
+  border: 1px solid rgba(48, 40, 32, 0.08);
+  border-radius: 20px;
+  color: #302820;
+  text-decoration: none;
+  box-shadow: 0 8px 30px rgba(48, 40, 32, 0.07);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.github-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(48, 40, 32, 0.18);
+  box-shadow: 0 18px 45px rgba(48, 40, 32, 0.12);
+}
+
+.github-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: #302820;
+  color: #f5f1eb;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.github-card h1 {
+  margin-bottom: 7px;
+  color: #302820;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.github-card p {
+  color: #756b62;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.github-arrow {
+  margin-left: auto;
+  color: #756b62;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 28px;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.github-card:hover .github-arrow {
+  color: #302820;
+  transform: translate(3px, -3px);
+}
+
+#notebook-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(35, 30, 26, 0.48);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+#notebook-overlay.visible {
+  opacity: 1;
+}
+
+#notebook-window {
+  position: relative;
+  width: min(700px, 90vw);
+  height: min(520px, 78vh);
+  background: #f5f1eb;
+  border: 1px solid rgba(48, 40, 32, 0.1);
+  border-radius: 24px;
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.28),
+    0 8px 30px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  transform: translateY(15px) scale(0.97);
+  transition:
+    transform 0.3s ease;
+}
+
+#notebook-overlay.visible #notebook-window {
+  transform: translateY(0) scale(1);
+}
+
+#notebook-close {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(48, 40, 32, 0.1);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  color: #302820;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+  z-index: 2;
+}
+
+#notebook-close:hover {
+  background: white;
+  transform: rotate(90deg);
+}
+
+#notebook-content {
+  height: 100%;
+  padding: 52px;
+  overflow-y: auto;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#notebook-content h1 {
+  margin-bottom: 24px;
+  color: #302820;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+#notebook-content p {
+  color: #504840;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+#camera-back {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(242, 238, 232, 0.92);
+  color: #302820;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  z-index: 900;
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+#camera-back.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#camera-back:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 700px) {
+  #laptop-window {
+    width: 92vw;
+    min-height: 360px;
+  }
+
+  #laptop-content {
+    padding: 36px 28px;
+  }
+
+  #laptop-header span {
+    font-size: 28px;
+  }
+
+  .github-card {
+    gap: 18px;
+    padding: 24px;
+  }
+
+  .github-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 15px;
+    font-size: 26px;
+  }
+
+  .github-card h1 {
+    font-size: 21px;
+  }
+
+  .github-card p {
+    font-size: 14px;
+  }
+
+  #notebook-window {
+    width: 92vw;
+    height: 80vh;
+  }
+
+  #notebook-content {
+  height: 100%;
+  padding: 52px;
+  overflow-y: auto;
+  font-family: 'Caveat', cursive;
+}
+
+#notebook-content h1 {
+  margin-bottom: 24px;
+  color: #302820;
+  font-family: 'Caveat', cursive;
+  font-size: 38px;
+  font-weight: 600;
+}
+
+#notebook-content p {
+  color: #504840;
+  font-family: 'Caveat', cursive;
+  font-size: 23px;
+  line-height: 1.55;
+}
+}
+
+#contact-buttons {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 800;
+}
+
+.contact-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(48, 40, 32, 0.18);
+  border-radius: 50%;
+  background: rgba(245, 241, 235, 0.9);
+  color: #302820;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(48, 40, 32, 0.12);
+  backdrop-filter: blur(8px);
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.contact-button:hover {
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(48, 40, 32, 0.18);
+}
+
+.cv-button {
+  width: auto;
+  min-width: 76px;
+  padding: 0 16px;
+  gap: 7px;
+  border-radius: 999px;
+  background: #302820;
+  color: #f5f1eb;
+  border-color: #302820;
+  font-size: 14px;
+}
+
+.cv-button:hover {
+  background: #463a30;
+  color: #fff;
+}
+
+.button-arrow {
+  font-size: 18px;
+  line-height: 1;
+}
+
+@media (max-width: 700px) {
+  #contact-buttons {
+    right: 18px;
+    bottom: 18px;
+    gap: 8px;
+  }
+
+  .contact-button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .cv-button {
+    min-width: 70px;
+  }
+}
